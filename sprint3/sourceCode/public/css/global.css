@@ -1,0 +1,184 @@
+body {
+    margin: 0;
+    padding: 0;
+    background: #f5f5f5;
+    display: flex;
+    justify-content: center;
+}
+
+.Mobile {
+    width: 100%;
+    max-width: 400px;
+    height: 100vh; 
+    max-height: 850px;
+    padding: 20px;
+    box-sizing: border-box;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    overflow-y: auto; 
+    overflow-x: hidden;
+    position: relative;
+    background-color: #f5f5f5;
+}
+
+.Mobile::-webkit-scrollbar {
+    display: none;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.Section-Header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.section-header h2 {
+    font-size: 18px;
+    margin: 0;
+    font-weight: 600;
+}
+
+.Header-divider {
+    border: 0;
+    border-top: 1.5px solid #dcdcdc;
+    margin-bottom: 20px;
+}
+
+.Page-title {
+    text-align: center;
+    font-size: 30px;
+    font-weight: normal;
+    color: #111;
+    margin-top: 5px;
+    margin-bottom: 25px;
+}
+
+.Back-btn {
+    background: #FF9800;
+    color: #000;
+    border: none;
+    border-radius: 50%;
+    width: 38px;
+    height: 38px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 20px;
+    box-shadow: 0 4px 10px rgba(255, 122, 0, 0.3);
+    transition: 0.2s;
+}
+
+.CustomModal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(2px);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.CustomModal-box {
+    background-color: #ffffff;
+    padding: 30px 20px;
+    border-radius: 12px;
+    width: 80%;
+    max-width: 300px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.CustomModal-box p {
+    font-size: 16px;
+    margin-top: 0;
+    margin-bottom: 25px;
+    color: #111;
+}
+
+.CustomModal-actions {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.CustomModal-btn {
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    font-weight: normal;
+    transition: 0.2s;
+    flex: 1;
+}
+
+.CustomModal-btn.confirm-btn {
+    background-color: #87ff87;
+    color: #000000;
+    transition: 0.2s;
+    cursor: pointer;
+
+}
+
+.CustomModal-btn.confirm-btn :hover {
+    background: #00fc00;
+}
+
+.CustomModal-btn.cancel-btn {
+    background-color: #ff9999;
+    color: #000;
+}
+
+.Success-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    display: none; 
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    border-radius: 20px;
+}
+
+.Success-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+.Success-img {
+    width: 180px;
+    height: 180px;
+    background-color: #d9d9d9;
+}
+
+.Success-content p {
+    font-size: 24px;
+    color: #000;
+    margin: 0;
+}
+
+.Checkout-Summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    font-size: 16px;
+}

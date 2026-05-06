@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editmenu</title>
+     <link rel="stylesheet" href="/css/menu-style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="app-container">
+    <div class="header">
+        <a href="/admin" class="back-btn" style="text-decoration: none; color: inherit;">&#8592;</a>
+    </div>
+    
+    <hr class="divider">
+
+    <form action="/menu/save" method="POST" enctype="multipart/form-data">
+        
+        <div class="image-section">
+            <div class="image-preview">
+                <div class="img-box small"></div>
+                <div class="img-box large"></div>
+            </div>
+            <input type="file" name="menuImage" accept="image/*" class="upload-btn" style="margin-top: 10px;">
+        </div>
+
+        <div class="form-group">
+            <label>หมวดหมู่:</label>
+            <select name="category" class="form-control">
+                <option value="">--- เลือกหมวดหมู่ ---</option>
+                <option value="อาหารจานเดียว">อาหารจานเดียว</option>
+                <option value="กับข้าว">กับข้าว</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>ชื่อเมนู:</label>
+            <input type="text" name="menuName" class="form-control" required>
+        </div>
+
+        <div class="form-group">
+            <label>ราคา:</label>
+            <div class="price-input-wrapper">
+                <input type="number" name="price" class="form-control price-input" required>
+                <span>บาท</span>
+            </div>
+        </div>
+
+        <div class="form-group inline-item">
+            <label class="auto-width">เมนูแนะนำ</label>
+            <input type="checkbox" name="isRecommended" value="true">
+        </div>
+
+        <div class="form-group">
+            <label>วัตถุดิบที่ใช้:</label>
+            <input type="text" name="ingredients" class="form-control">
+        </div>
+
+        <div class="form-group inline-item">
+            <label class="auto-width">เลือกระดับความเผ็ด</label>
+            <input type="checkbox" name="allowSpicyLevel" value="true">
+        </div>
+
+        <div class="form-group inline-item">
+            <label class="auto-width">เพิ่มทอปปิ้ง</label>
+            <button type="button" class="add-btn" style="border: none; cursor: pointer;">+</button>
+        </div>
+
+        <div class="topping-list">
+            <div class="topping-item">
+                <div class="topping-left">
+                    <input type="checkbox" name="toppings" value="ไข่ดาว" id="topping1">
+                    <label for="topping1" style="margin-left: 5px;">ไข่ดาว</label>
+                </div>
+                <span>5 บาท</span>
+            </div>
+            
+            <div class="topping-item" style="margin-top: 10px;">
+                <div class="topping-left">
+                    <input type="checkbox" name="toppings" value="ไข่เจียว" id="topping2">
+                    <label for="topping2" style="margin-left: 5px;">ไข่เจียว</label>
+                </div>
+                <span>10 บาท</span>
+            </div>
+        </div>
+
+        <div class="form-group vertical">
+            <label>รายละเอียด</label>
+            <textarea name="description" class="form-control textarea"></textarea>
+        </div>
+
+        <div style="text-align: center; margin-top: 20px; padding-bottom: 20px;">
+            <button type="submit" style="padding: 10px 40px; background-color: #28a745; color: white; border: none; border-radius: 5px; font-size: 16px; cursor: pointer;">บันทึกข้อมูล</button>
+        </div>
+
+    </form>
+</div>
+
+</body>
+</html>

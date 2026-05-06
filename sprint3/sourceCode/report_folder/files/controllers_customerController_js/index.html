@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - controllers/customerController.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>controllers/customerController.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">65.40</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">126</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">34.96</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">1.38</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">const Menu = require(&#039;../models/menu&#039;);
+const CategoryMenu = require(&#039;../models/categoryMenu&#039;);
+
+module.exports = {
+  getAll: (req, res) =&gt; {
+    const menus = Menu.getAll();
+    const categories = CategoryMenu.getAll().length &gt; 0 ? CategoryMenu.getAll() : [{name: &#039;ไม่มีหมวดหมู่&#039;}];
+
+    const Cart = require(&#039;../models/cart&#039;);
+    const cartItems = Cart.getCart();
+    const totalQty = cartItems.reduce((sum, item) =&gt; sum + item.quantity, 0);
+    
+    const totalPrice = Cart.calculateTotal();
+    
+    res.render(&#039;customer/index&#039;, { menus, categories, totalQty, totalPrice });
+  },
+  getPromotionMenu: (req, res) =&gt; {
+    const menus = Menu.showAll(); 
+    const promotionMenus = menus.filter(item =&gt; {
+        return item.category &amp;&amp; item.category.id === 1;
+    });
+
+    res.render(&#039;customer/promotionPage&#039;, { promotionMenus });
+  },
+  getDetail: (req, res) =&gt; {
+    const menuId = parseInt(req.params.id);
+    const item = Menu.selectById(menuId);
+    
+    if (!item) return res.status(404).send(&#039;Menu not found&#039;);
+
+    const Cart = require(&#039;../models/cart&#039;);
+    const existingInCart = Cart.getCart().find(c =&gt; c.menuId === menuId);
+    
+    const currentQty = existingInCart ? existingInCart.quantity : 1;
+
+    res.render(&#039;customer/detailMenu&#039;, { item, currentQty });
+  },
+  addToCart: (req, res) =&gt; {
+    const { menuId, quantity, isUpdate } = req.body;
+    const Cart = require(&#039;../models/cart&#039;);
+    
+    const id = parseInt(menuId);
+    const qty = parseInt(quantity);
+    
+    if (isUpdate) {
+        const existingItem = Cart.getCart().find(item =&gt; item.menuId === id);
+        const currentQty = existingItem ? existingItem.quantity : 0;
+      
+        const diff = qty - currentQty;
+        
+        const result = Cart.addToCart(id, diff);
+        
+        if (result) return res.json({ success: true });
+    } 
+    else {
+        const result = Cart.addToCart(id, qty);
+        if (result) return res.json({ success: true });
+    }
+
+    return res.json({ success: false, message: &#039;เพิ่มไม่สำเร็จ&#039; });
+  },
+  removeToCart: (req, res) =&gt; {
+    try {
+        const { menuId } = req.body;
+        const Cart = require(&#039;../models/cart&#039;);
+
+        const id = parseInt(menuId);
+
+        const result = Cart.deleteItemCompletely(id);
+        
+        if (result) {
+            return res.json({ success: true, message: &#039;Item removed&#039; });
+        } else {
+            return res.status(400).json({ success: false, message: &#039;Item not found in cart&#039; });
+        }
+    } catch (error) {
+        console.error(&quot;Remove Error:&quot;, error);
+        return res.status(500).json({ success: false, message: &#039;Internal Server Error&#039; });
+    }
+  },
+  getCartPage: (req, res) =&gt; {
+    const Cart = require(&#039;../models/cart&#039;);
+    const cartItems = Cart.getCart();
+    
+    if (!cartItems || cartItems.length === 0) {
+        return res.redirect(&#039;/customer&#039;); 
+    }
+
+    const totalPrice = Cart.calculateTotal();
+    res.render(&#039;customer/cart&#039;, { cartItems, totalPrice }); 
+  },
+  confirmOrder: (req, res) =&gt; {
+    const Order = require(&#039;../models/order&#039;);
+    const orderResult = Order.confirmCartToOrder();
+
+    if (orderResult) {
+        res.json({ 
+            success: true, 
+            message: &#039;ส่งรายการอาหารเรียบร้อย&#039;,
+            orderId: orderResult.id 
+        });
+    } else {
+        res.status(400).json({ 
+            success: false, 
+            message: &#039;ไม่มีรายการอาหารในตะกร้า&#039; 
+        });
+    }
+  },
+  getOrder: (req, res) =&gt; {
+    const Order = require(&#039;../models/order&#039;);
+    const currentOrder = Order.getCurrentOrder();
+
+    res.render(&#039;customer/order&#039;, { order: currentOrder });
+  },
+  checkout: (req, res) =&gt; {
+    const Order = require(&#039;../models/order&#039;);
+    
+    const success = Order.checkout(); 
+
+    if (success) {
+        res.json({ success: true, message: &#039;Payment completed&#039; });
+    } else {
+        res.status(500).json({ success: false, message: &#039;Checkout failed&#039; });
+    }
+}
+};</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ cyclomatic }} <br>
+    Length : {{ halstead.length }} <br>
+    Difficulty : {{ halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

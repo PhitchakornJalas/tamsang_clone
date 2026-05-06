@@ -1,0 +1,169 @@
+<style>
+  /* Header Styles */
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 20px;
+  }
+
+  .menu-btn {
+    background-color: #e67e22;
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  .user-info {
+    font-size: 14px;
+    color: #555;
+  }
+
+  /* Sidebar Styles */
+  .sidebar {
+    position: absolute;
+    top: 0;
+    left: -280px;
+    width: 280px;
+    height: 100%;
+    background-color: white;
+    z-index: 1000;
+    transition: 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .sidebar.active {
+    left: 0;
+  }
+
+  .sidebar-header {
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #eee;
+  }
+
+  .brand {
+    font-size: 24px;
+    font-weight: bold;
+  }
+
+  .close-btn {
+    background-color: #e67e22;
+    color: white;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  .sidebar-menu {
+    list-style: none;
+    padding: 20px 0;
+  }
+
+  .sidebar-menu li a {
+    display: block;
+    padding: 15px 25px;
+    text-decoration: none;
+    color: #333;
+    font-size: 18px;
+  }
+
+  .sidebar-footer {
+    margin-top: auto;
+    padding: 20px;
+    border-top: 1px solid #eee;
+  }
+
+  .sidebar-footer a {
+    text-decoration: none;
+    color: #333;
+  }
+
+  /* Overlay Styles */
+  .overlay {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 999;
+  }
+
+  .overlay.active {
+    display: block;
+  }
+</style>
+
+<div id="sidebar" class="sidebar">
+  <div class="sidebar-header">
+    <span class="brand">TamSang</span>
+    <div class="close-btn" id="close-sidebar">
+      <i class="fa-solid fa-xmark"></i>
+    </div>
+  </div>
+  <ul class="sidebar-menu">
+    <li><a href="/dashboard">ยอดขายวันนี้</a></li>
+    <li><a href="#">จัดการโต๊ะ</a></li>
+    <li><a href="#">จัดการพนักงาน</a></li>
+    <li><a href="#">เมนูและวัตถุดิบ <i class="fa-solid fa-chevron-left"></i></a></li>
+    <li><a href="#">บันทึกต้นทุน</a></li>
+    <li><a href="/orderHistory">ประวัติออเดอร์</a></li>
+    <li><a href="#">สรุปผล</a></li>
+  </ul>
+  <div class="sidebar-footer">
+    <a href="#">ตั้งค่าร้านค้า</a>
+  </div>
+</div>
+
+<div id="overlay" class="overlay"></div>
+
+<header class="header">
+  <div class="menu-btn" id="open-sidebar">
+    <i class="fa-solid fa-bars"></i>
+  </div>
+  <div class="user-info">
+    <span><%= currentUser %></span>
+    <a href="/logout" style="color: black; margin-left: 10px;"><i class="fa-solid fa-right-from-bracket"></i></a>
+  </div>
+</header>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const openBtn = document.getElementById('open-sidebar');
+    const closeBtn = document.getElementById('close-sidebar');
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('overlay');
+
+    if (openBtn && sidebar && overlay) {
+      openBtn.onclick = () => {
+        sidebar.classList.add('active');
+        overlay.classList.add('active');
+      };
+
+      const hideSidebar = () => {
+        sidebar.classList.remove('active');
+        overlay.classList.remove('active');
+      };
+
+      if (closeBtn) closeBtn.onclick = hideSidebar;
+      overlay.onclick = hideSidebar;
+    }
+  });
+</script>

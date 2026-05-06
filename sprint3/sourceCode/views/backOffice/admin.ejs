@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/admin.css">
+    <title>ManageMenuPage</title>
+</head>
+
+<body>
+<div class="container">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="menu-btn">☰</div>
+    <div class="user">username ↪</div>
+  </div>
+
+  <hr>
+
+  <!-- Tabs -->
+  <div class="tabs">
+    <div class="active">หมวดหมู่เมนู</div>
+    <div>เมนู</div>
+  </div>
+
+  <hr>
+
+  <!-- Content -->
+  <h2>โปรโมชั่นวันนี้</h2>
+  <h2>เมนูแนะนำ</h2>
+  <h2>ท็อปปิ้ง</h2>
+
+  <!-- LIST -->
+  <div id="list"></div>
+
+  <button class="add-btn" onclick="addItem()">เพิ่มหมวดหมู่อาหาร</button>
+
+</div>
+
+<script>
+let items = JSON.parse(localStorage.getItem("items")) || [
+  { id: 1, name: "อาหารจานเดียว" },
+  { id: 2, name: "อาหารจานเดียว" },
+  { id: 3, name: "อาหารจานเดียว" }
+];
+
+// render
+function render() {
+  const list = document.getElementById("list");
+  list.innerHTML = "";
+
+  items.forEach(item => {
+    const div = document.createElement("div");
+    div.className = "menu-item";
+    div.draggable = true;
+    div.dataset.id = item.id;
+
+    div.innerHTML = `
+      <div class="left">
+        <span class="drag">⋮⋮</span>
+        <span>${item.name}</span>
+      </div>
+      <div class="actions">
+        <button class="btn edit" onclick="editItem(${item.id})">แก้ไข</button>
+        <button class="btn delete" onclick="deleteItem(${item.id})">ลบ</button>
+      </div>
+    `;
+
+    addDragEvents(div);
+    list.appendChild(div);
+  });
+
+  localStorage.setItem("items", JSON.stringify(items));
+}
+
+// ปุ่มเเพิ่มแหละอิอิ
+function addItem() {
+  const name = prompt("เพิ่มหมวด:");
+  if (name) {
+    items.push({ id: Date.now(), name });
+    render();
+  }
+}
+
+// ปุ่มแก้ไข อย่าลืม
+function editItem(id) {
+  const item = items.find(i => i.id === id);
+  const name = prompt("แก้ไข:", item.name);
+  if (name) {
+    item.name = name;
+    render();
+  }
+}
+
+//  ลบ
+function deleteItem(id) {
+  if (confirm("ไม่รับจริงหรอคะ?")) {
+    items = items.filter(i => i.id !== id);
+    render();
+  }
+}
+
+// Drag & Drop
+let dragItem = null;
+
+function addDragEvents(el) {
+  el.addEventListener("dragstart", () => {
+    dragItem = el;
+  });
+
+  el.addEventListener("dragover", (e) => {
+    e.preventDefault();
+  });
+
+  el.addEventListener("drop", () => {
+    if (dragItem !== el) {
+      const list = document.getElementById("list");
+      list.insertBefore(dragItem, el);
+
+      // update array
+      const newOrder = [];
+      list.querySelectorAll(".menu-item").forEach(item => {
+        const id = Number(item.dataset.id);
+        newOrder.push(items.find(i => i.id === id));
+      });
+      items = newOrder;
+      localStorage.setItem("items", JSON.stringify(items));
+    }
+  });
+}
+
+render();
+</script>
+</body>
+
+</html>

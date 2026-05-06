@@ -1,0 +1,129 @@
+
+body {
+    background-color: #ebebeb; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: 'Sarabun', sans-serif;
+}
+
+
+.login-box {
+    background-color: white;
+    width: 100%;
+    max-width: 380px; 
+    height: 100vh;   
+    max-height: 850px; 
+    
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    
+    padding: 0 40px; 
+    box-sizing: border-box;
+}
+h1 {
+    font-size: 38px;
+    font-weight: normal; 
+    margin-top: 0;
+    margin-bottom: 35px; 
+    text-align: center;
+    color: #000;
+}
+
+
+.input-field {
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 15px;
+    background-color: #c4baba; 
+    border: none;
+    border-radius: 8px; 
+    font-size: 16px;
+    font-family: 'Sarabun', sans-serif;
+    box-sizing: border-box; 
+    color: #000;
+}
+
+
+.input-field::placeholder {
+    color: #333;
+}
+
+
+.btn-login {
+    width: 100%;
+    padding: 15px;
+    background-color: #ff66ff; 
+    color: black;
+    border: none;
+    border-radius: 8px; 
+    font-size: 16px;
+    font-family: 'Sarabun', sans-serif;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+
+.btn-login:hover {
+    background-color: #ff4dff; 
+}
+
+/* --- ส่วนที่เพิ่มใหม่ต่อจากเดิม --- */
+
+.divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 20px 0;
+    color: #888;
+    font-size: 14px;
+}
+
+.divider::before, .divider::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid #ddd;
+}
+
+.divider:not(:empty)::before { margin-right: .5em; }
+.divider:not(:empty)::after { margin-left: .5em; }
+
+/* --- เคลียร์สไตล์เก่าของ i ออก แล้วใส่สไตล์ img แทน --- */
+
+.btn-google {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 13px; /* ปรับ padding ให้สมดุล */
+    background-color: #ffffff;
+    color: #444;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+/* สไตล์สำหรับโลโก้ G */
+.btn-google img {
+    height: 20px; /* กำหนดความสูงของไอคอน */
+    width: auto;  /* ให้ความกว้างปรับตามอัตโนมัติ */
+    margin-right: 12px; /* ระยะห่างระหว่างไอคอนกับข้อความ */
+}
+
+.btn-google span {
+    font-family: 'Sarabun', sans-serif;
+    font-weight: 500;
+}
+
+.btn-google:hover {
+    background-color: #fcfcfc;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08); /* เพิ่มเงานุ่มๆ ตอน hover */
+    border-color: #ccc;
+}

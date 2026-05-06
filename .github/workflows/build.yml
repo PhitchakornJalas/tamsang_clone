@@ -1,0 +1,47 @@
+name: Tamsang
+
+# on:
+#  push:
+#    branches: [ "main" ]
+#  pull_request:
+#    branches: [ "main" ]
+
+on:
+  workflow_dispatch: 
+
+jobs:
+  # --- Job ที่ 1: รัน Unit Test (Jest) ---
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24.x
+      - name: Run Jest
+        run: |
+          cd sprint3/sourceCode
+          npm install
+          # ระบุให้ Jest สนใจแค่โฟลเดอร์ test/ และไฟล์ .test.js
+          npx jest test/ --testMatch="**/*.test.js"
+
+  # --- Job ที่ 2: รัน UI Test (Playwright) ---
+  ui-testing:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24.x
+      - name: Run Playwright
+        env:
+          GOOGLE_CLIENT_ID: "dummy"
+          GOOGLE_CLIENT_SECRET: "dummy"
+        run: |
+          cd sprint3/sourceCode
+          npm install
+          npx playwright install --with-deps
+          npm start &
+          npx wait-on http://localhost:3000 --timeout 60000
+          
+          npx playwright test tests

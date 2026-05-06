@@ -1,0 +1,290 @@
+.TableName {
+    background: #dfdede;
+    padding: 6px 16px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+}
+
+.TableIcon {
+    background: #FF9800;
+    color: black;
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+}
+
+.Cart-btn {
+    background-color: #FF9800;
+    border: none;
+    border-radius: 50%;
+    width: 38px;
+    height: 38px;
+    cursor: pointer;
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    padding: 0;
+}
+
+.Categories {
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    white-space: nowrap;
+    align-items: center;
+    margin-left: -20px;
+    margin-right: -20px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.Categories span {
+    padding: 6px 14px;
+    background: #d3d3d3;
+    border-radius: 20px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.Categories::-webkit-scrollbar { 
+    display: none; 
+}
+
+.Search-btn {
+    background: #FF9800;
+    border: none;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    flex-shrink: 0;
+    box-shadow: 0 4px 10px rgba(242,113,28,0.4);
+    transition: 0.2s;
+    position: sticky; 
+    right: 0px; 
+    z-index: 10;
+}
+
+.Promotion-Header {
+    text-decoration: none; 
+    color: inherit; 
+}
+
+.Promotion-btn {
+    background-color: #FF9800;
+    color: #000000 ;
+    font-weight: bold;
+    border: none;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+}
+
+.PromotionScroll {
+    display: flex;
+    gap: 15px;
+    overflow-x: auto;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    scroll-snap-type: x mandatory; 
+    -webkit-overflow-scrolling: touch; 
+    scroll-snap-align: start;
+}
+
+.PromotionScroll::-webkit-scrollbar { 
+    display: none; 
+}
+
+.Promo-Card {
+    min-width: 250px; 
+    height: 100px;
+    flex-shrink: 0;
+    scroll-snap-align: start;
+    border-radius: 16px;
+    padding: 12px;
+    background: white;
+    display: flex;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    gap: 12px;
+    align-items: flex-start; /* จัดให้รูปอยู่ชิดด้านบน */
+    transition: 0.2s;
+    cursor: pointer;
+}
+
+/* ส่วนของรูปภาพ */
+.Promo-img {
+    width: 70px;
+    height: 70px;
+    background-color: #e0e0e0; /* สีเทา placeholder */
+    border-radius: 12px;
+    flex-shrink: 0;
+}
+
+/* ส่วนกลุ่มข้อมูลชื่อและรายละเอียด */
+.Promo-info {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    height: 100%;
+    min-width: 0; /* สำคัญมาก: เพื่อให้ text-overflow ทำงานใน Flexbox */
+}
+
+/* ชื่อสินค้า */
+.Promo-info p strong {
+    font-size: 15px;
+    color: #333;
+    display: block;
+    line-height: 1.2;
+    margin-bottom: 2px;
+}
+
+/* รายละเอียดสินค้า (บรรทัดที่ 2) */
+.Promo-info p[style*="font-size: 10px"] {
+    color: #888;
+    line-height: 1.3;
+     margin: 0; /* เคลียร์ margin เริ่มต้นของ p ออกให้หมด */
+}
+
+/* ส่วนของราคา (บรรทัดที่ 3) */
+.Promo-price {
+    margin-top: auto; /* เด้งลงไปข้างล่างสุดของ .Promo-info */
+    text-align: right; /* ชิดขวา */
+    font-size: 16px;
+    font-weight: bold;
+    color: #f39c12; /* สีส้มทองตามรูป */
+}
+
+.Main-Menu {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.Main-Menu a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.Menu-Card {
+    position: relative;
+    transition: 0.2s;
+}
+
+.Menu-img {
+    width: 100%;
+    height: 120px;
+    background: #ddd;
+    border-radius: 12px;
+}
+
+.Menu-info {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 6px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.Tag {
+    position: absolute;
+    top: 10px;
+    left: -5px;
+    background: #FF9800;
+    padding: 3px 10px;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.Cart-BottomBar {
+    position: sticky;
+    bottom: 0px;
+    left: 0;
+    width: 100%;
+    background: #8e84ff;
+    border-radius: 12px;
+    padding: 15px 20px;
+    display: none;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    font-weight: bold;
+    box-shadow: 0 4px 15px rgba(142, 132, 255, 0.4);
+    z-index: 100;
+    box-sizing: border-box;
+}
+
+.GoToCart-link {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    text-decoration: none;
+}
+
+.sticky-top {
+    position: sticky;
+    /* 1. ดึงขึ้นไปให้ทับขอบบนสุดของ .Mobile (ค่าต้องเท่ากับ padding-top ของ .Mobile) */
+    top: -20px; 
+    
+    /* 2. ดึงซ้ายขวาให้ชนขอบสนิท (ค่าต้องเท่ากับ padding-left/right ของ .Mobile) */
+    margin-left: -20px;
+    margin-right: -20px;
+    
+    /* 3. คำนวณความกว้างใหม่ให้เต็มกรอบพอดี */
+    width: calc(100% + 40px);
+    
+    z-index: 1000;
+    background-color: white;
+    
+    /* 4. ปรับ padding ข้างในให้เนื้อหาไม่อึดอัด (เพิ่มด้านบนเพื่อชดเชยที่ดึงขึ้นไป) */
+    padding: 20px 20px 10px 20px;
+    box-sizing: border-box;
+
+    /* 5. สำคัญมาก: ขอบบนต้องโค้งเท่ากับตัว .Mobile เพื่อให้ปิดรอยรั่วสนิท */
+    border-radius: 20px 20px 0 0; 
+
+    /* 6. ใส่เงาเพื่อสร้างมิติ */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    background-color: transparent; /* ให้เห็นสีขาวของ sticky-top */
+}
+
+.Categories {
+    background-color: white;
+    padding-bottom: 5px;
+}
+
+/* ลบเงาที่ตัว Search-btn ออกถ้ามันดูซ้ำซ้อนกับเงาของ Header */
+.Search-btn {
+    position: sticky;
+    right: 0;
+    background: #FF9800;
+    border: none;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+    z-index: 10;
+    /* ใช้ gradient บังตัวอักษรแทนเงาเข้มๆ จะดูเนียนกว่า */
+    box-shadow: -10px 0 15px white; 
+}

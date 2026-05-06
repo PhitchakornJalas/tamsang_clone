@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tamsang - MenuDetail</title>
+    <link rel="stylesheet" href="/css/global.css">
+    <link rel="stylesheet" href="/css/detail.css">
+</head>
+
+<body>
+    <div class="Mobile">
+        <header class="PromotionPage-header">
+            <button class="Back-btn" onclick="history.back()">&#8592;</button>
+        </header>
+
+        <hr class="Header-divider">
+
+        <div class="DetailMenu-img"></div>
+
+        <div class="DetailMenu-section">
+            <div class="DetailMenu-row">
+                <h2 class="DetailMenu-title"><%= item.name %></h2>
+                <span class="DetailMenu-price">
+                    <span class="DetailMenu-price-number" id="item-price"><%= item.price %></span>
+                    <span class="DetailMenu-price-unit">บาท</span>
+                </span>
+            </div>
+            <p class="DetailMenu-description">รายละเอียด/ส่วนประกอบบบบ</p>
+        </div>
+        <form class="DetailMenu-form">
+            <!-- <div class="Option-Section">
+                <h4 class="Option-title">ระดับความเผ็ด</h4>
+                <div class="Option-choice">
+                    <label class="Option-row">
+                    <input type="radio" name="spicyLevel" value="low" class="Custom-radio" checked>
+                    <span>ไม่เผ็ด</span>
+                </label>
+
+                <label class="Option-row">
+                    <input type="radio" name="spicyLevel" value="low" class="Custom-radio">
+                    <span>เผ็ดน้อย</span>
+                </label>
+
+                <label class="Option-row">
+                    <input type="radio" name="spicyLevel" value="low" class="Custom-radio">
+                    <span>เผ็ดกลาง</span>
+                </label>
+
+                <label class="Option-row">
+                    <input type="radio" name="spicyLevel" value="low" class="Custom-radio">
+                    <span>เผ็ดมาก</span>
+                </label>
+                </div>               
+            </div>
+
+            <div class="Option-Section">
+                <h4 class="Option-title">ท็อปปิ้ง</h4>
+                <div class="Option-choice">
+                <label class="Option-row">
+                    <input type="checkbox" name="topping" value="friedEgg" class="Custom-checkbox">
+                    <span>ไข่ดาว</span>
+                </label>
+
+                <label class="Option-row">
+                    <input type="checkbox" name="topping" value="omelette" class="Custom-checkbox">
+                    <span>ไข่เจียว</span>
+                </label>
+
+                <label class="Option-row">
+                    <input type="checkbox" name="topping" value="bacon" class="Custom-checkbox">
+                    <span>เบคอน</span>
+                </label>
+                </div>
+            </div> -->
+
+            <div class="Quantity-control">
+                <button type="button" id="btn-decrease" class="Quantity-btn">-</button>
+                <span id="quantity-display" class="Quantity-display"><%= currentQty %></span>
+                <button type="button" id="btn-increase" class="Quantity-btn">+</button>
+            </div>
+            <div class="Bottom-action">
+                <button type="button" class="add-to-cart-btn">เพิ่มลงในตะกร้า</button>
+            </div>
+
+            <script>
+                // หุ้มโค้ดทั้งหมดไว้ใน window.onload
+                window.onload = function() {
+                    const addToCartBtn = document.querySelector('.add-to-cart-btn');
+                    const btnDecrease = document.getElementById('btn-decrease');
+                    const btnIncrease = document.getElementById('btn-increase');
+                    const quantityDisplay = document.getElementById('quantity-display');
+
+                    let quantity = parseInt("<%= currentQty %>");
+                    const currentMenuId = "<%= item.id %>";
+
+                    if (btnDecrease && btnIncrease && quantityDisplay) {
+                        btnDecrease.onclick = function() {
+                            if (quantity > 0) {
+                                quantity--;
+                                quantityDisplay.textContent = quantity;
+                            }
+                        };
+                        btnIncrease.onclick = function() {
+                            quantity++;
+                            quantityDisplay.textContent = quantity;
+                        };
+                    }
+
+                    if (addToCartBtn) {
+                        function updateButtonUI() {
+                            if (quantity === 0) {
+                                addToCartBtn.style.backgroundColor = '#f44336';
+                                addToCartBtn.textContent = 'ลบออกจากตะกร้า';
+                            } else {
+                                addToCartBtn.style.backgroundColor = '#fff200';
+                                addToCartBtn.textContent = 'เพิ่มลงในตะกร้า';
+                            }
+                        }
+
+                        updateButtonUI();
+
+                        addToCartBtn.onclick = async function() {
+                            let url = '/customer/cart/add';
+                            let bodyContent = {
+                                menuId: currentMenuId,
+                                quantity: quantity,
+                                isUpdate: true
+                            };
+
+                            if (quantity === 0) {
+                                url = '/customer/cart/remove';
+                                bodyContent = { menuId: currentMenuId };
+                            }
+
+                            try {
+                                const response = await fetch(url, {
+                                    method: 'POST',
+                                    headers: { 'Content-Type': 'application/json' },
+                                    body: JSON.stringify(bodyContent)
+                                });
+
+                                const contentType = response.headers.get("content-type");
+                                if (contentType && contentType.indexOf("application/json") !== -1) {
+                                    const result = await response.json();
+                                    if (result.success) {
+                                        window.location.href = '/customer/cart'; 
+                                    } else {
+                                        alert('Error: ' + result.message);
+                                    }
+                                } else {
+                                    const errorHtml = await response.text();
+                                    console.error("Server Error:", errorHtml);
+                                    alert("Server ตอบกลับผิดพลาด (ตรวจสอบ Console)");
+                                }
+                            } catch (error) {
+                                console.error('Fetch Error:', error);
+                                alert('ไม่สามารถเชื่อมต่อกับเซิร์ฟเวอร์ได้');
+                            }
+                        };
+
+                        btnDecrease.addEventListener('click', updateButtonUI);
+                        btnIncrease.addEventListener('click', updateButtonUI);
+                    }
+                };
+            </script>
+        </form>
+    </div>
+</body>
+
+</html>

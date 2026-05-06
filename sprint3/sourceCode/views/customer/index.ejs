@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/global.css">
+    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>Tamsang - Home</title>
+</head>
+
+<body>
+    <div class="Mobile">
+        <div class="sticky-top">
+            <header>
+                <div class="TableName">
+                    <span class="TableIcon">C</span> Table: XXX
+                </div>
+                <div class="Header-Action">
+                    <button class="Cart-btn" onclick="window.location.href='/customer/order'"><i class="fa-regular fa-clipboard" style="font-size: 16px;"></i></button>
+                </div>
+            </header>
+
+            <nav class="Categories">
+                <% categories.forEach((category, index)=> { %>
+                    <span onclick="scrollToCategory('cat-<%= category.id %>')">
+                        <%= category.name %>
+                    </span>
+                    <% }); %>
+
+                        <button class="Search-btn">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-search" viewBox="0 0 16 16">
+                                <path
+                                    d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+
+                            </svg>
+                        </button>
+            </nav>
+        </div>
+
+
+        <% categories.forEach(category=> { %>
+            <section id="cat-<%= category.id %>">
+                <div class="Section-Header">
+                    <h2>
+                        <%= category.name %>
+                    </h2>
+                    <% if (category.id===1) { %>
+                        <a href="/customer/promotions" class="Promotion-btn">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-arrow-right-short" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8" />
+                            </svg>
+                        </a>
+                        <% } %>
+                </div>
+
+                <div class="<%= category.id === 1 ? 'PromotionScroll' : 'Main-Menu' %>">
+
+                    <% const categoryItems=menus.filter(item=> Number(item.category) === Number(category.id));
+                        %>
+
+                        <% categoryItems.forEach(item=> { %>
+                            <% if (category.id===1) { %>
+                                <a href="/customer/menu/<%= item.id %>" style="color: black; text-decoration: none;">
+                                    <article class="Promo-Card">
+                                        <div class="Promo-img"></div>
+                                        <div class="Promo-info">
+                                            <p><strong>
+                                                    <%= item.name %>
+                                                </strong></p>
+                                            <p style="font-size: 10px;">รายละเอียดของสินค้า .......</p>
+                                            <p class="Promo-price">
+                                                <%= item.price %> บาท
+                                            </p>
+                                        </div>
+                                    </article>
+                                </a>
+                                <% } else if (category.id===2) { %>
+                                    <a href="/customer/menu/<%= item.id %>">
+                                        <article class="Menu-Card">
+                                            <span class="Tag">แนะนำ</span>
+                                            <div class="Menu-img"></div>
+                                            <div class="Menu-info">
+                                                <p><strong>
+                                                        <%= item.name %>
+                                                    </strong></p>
+                                                <p class="Menu-price">
+                                                    <%= item.price %> บาท
+                                                </p>
+                                            </div>
+                                        </article>
+                                    </a>
+                                    <% } else { %>
+                                        <a href="/customer/menu/<%= item.id %>">
+                                            <article class="Menu-Card">
+                                                <div class="Menu-img"></div>
+                                                <div class="Menu-info">
+                                                    <p><strong>
+                                                            <%= item.name %>
+                                                        </strong></p>
+                                                    <p class="Menu-price">
+                                                        <%= item.price %> บาท
+                                                    </p>
+                                                </div>
+                                            </article>
+                                        </a>
+                                        <% } %>
+                                            <% }); %>
+                </div>
+            </section>
+            <% }); %>
+
+                <% if (totalQty> 0) { %>
+                    <div class="Cart-BottomBar" style="display: flex;">
+                        <span id="bottom-cart-qty">ตะกร้า <%= totalQty %> รายการ</span>
+                        <span id="bottom-cart-price">
+                            <%= totalPrice %> บาท
+                        </span>
+                        <a href="/customer/cart" class="GoToCart-link"></a>
+                    </div>
+                    <% } %>
+    </div>
+
+    <script>
+        function scrollToCategory(categoryId) {
+            const mobileContainer = document.querySelector('.Mobile'); // หาตัวกล่องที่เลื่อนได้
+            const targetElement = document.getElementById(categoryId); // หาเป้าหมายที่จะไป
+
+            if (mobileContainer && targetElement) {
+                // คำนวณระยะ: ตำแหน่งของเป้าหมาย - ตำแหน่งของขอบบนกล่อง - ความสูง Header
+                const headerOffset = 140;
+                const targetPosition = targetElement.offsetTop - headerOffset;
+
+                // สั่งเลื่อนที่ตัว container (.Mobile) ไม่ใช่ window
+                mobileContainer.scrollTo({
+                    top: targetPosition,
+                    behavior: "smooth"
+                });
+            }
+        }
+    </script>
+</body>
+
+</html>

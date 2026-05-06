@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tamsang - Promotions</title>
+
+    <link rel="stylesheet" href="/css/global.css">
+    <link rel="stylesheet" href="/css/promotion.css">
+</head>
+
+<body>
+    <div class="Mobile">
+        <header class="PromotionPage-header">
+            <button class="Back-btn" onclick="history.back()">&#8592;</button>
+        </header>
+
+        <hr class="Header-divider">
+
+        <h2 class="Page-title">โปรโมชันวันนี้</h2>
+
+        <section class="PromoList-container">
+
+            <% if (promotionMenus && promotionMenus.length> 0) { %>
+                <% promotionMenus.forEach(item=> { %>
+
+                    <a href="/customer/menu/<%= item.id %>" style="color: black; text-decoration: none;">
+                        <article class="PromoList-card">
+                            <div class="PromoList-img"></div>
+                            <div class="PromoList-info">
+                                <h3 class="PromoList-title">
+                                    <%= item.name %>
+                                </h3>
+                                <p class="PromoList-description">รายละเอียด</p>
+                                <div class="PromoList-price">
+                                    <%= item.price %> บาท
+                                </div>
+                            </div>
+                        </article>
+                    </a>
+
+                    <% }); %>
+                        <% } else { } %>
+
+        </section>
+    </div>
+</body>
+
+</html>

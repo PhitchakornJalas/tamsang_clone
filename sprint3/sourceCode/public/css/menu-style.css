@@ -1,0 +1,198 @@
+
+body {
+    margin: 0;
+    padding: 20px;
+    background-color: #f2f2f2; 
+    font-family: 'Sarabun', sans-serif;
+    display: flex;
+    justify-content: center;
+}
+
+
+.app-container {
+    background-color: #ffffff;
+    width: 360px;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+
+.header {
+    margin-bottom: 10px;
+}
+
+.back-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 24px;            
+    height: 24px;            
+    background-color: #ff6600; 
+    color: black;          
+    border-radius: 50%;      
+    text-decoration: none;   
+    font-size: 18px;        
+    font-weight: bold;       
+    cursor: pointer;         
+    transition: 0.3s;       
+}
+
+
+.back-btn:hover {
+    background-color: #522406;
+}
+
+/* เส้นคั่น */
+.divider {
+    border: 0;
+    border-top: 1px solid #888;
+    margin-bottom: 25px;
+}
+
+/* รูปภาพ */
+.image-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.image-preview {
+    display: flex;
+    align-items: flex-end; 
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.img-box {
+    background-color: #bebebe; 
+    border-radius: 10px;
+}
+
+.img-box.small {
+    width: 75px;
+    height: 75px;
+}
+
+.img-box.large {
+    width: 125px;
+    height: 125px;
+}
+
+
+.upload-btn {
+    background-color: #bdfa89; 
+    border: none;
+    padding: 8px 25px;
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+
+.form-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.form-group > label {
+    width: 110px; 
+    font-size: 16px;
+    flex-shrink: 0;
+}
+
+
+.form-control {
+    flex-grow: 1;
+    background-color: #bebebe;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 16px;
+    outline: none;
+}
+
+
+.price-input-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.price-input {
+    width: 120px;
+    flex-grow: 0;
+}
+
+
+.inline-item {
+    justify-content: flex-start;
+}
+
+.inline-item .auto-width {
+    width: auto;
+    margin-right: 15px;
+}
+
+
+.custom-checkbox {
+    width: 22px;
+    height: 22px;
+    border: 1.5px solid #000;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+
+.add-btn {
+    width: 24px;
+    height: 24px;
+    background-color: #ff6b00;
+    color: #000;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+
+.topping-list {
+    margin-bottom: 20px;
+}
+
+.topping-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 15px; /* เว้นวรรคเข้ามาด้านใน */
+    font-size: 16px;
+}
+
+.topping-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+
+.form-group.vertical {
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.form-group.vertical label {
+    margin-bottom: 10px;
+}
+
+.textarea {
+    width: 100%;
+    height: 80px;
+    resize: none;
+    box-sizing: border-box;
+}

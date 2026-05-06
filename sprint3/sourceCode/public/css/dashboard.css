@@ -1,0 +1,89 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* ปรับ body ให้เหมือนหน้า Login */
+body {
+    background-color: #ebebeb; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+/* ปรับ container ให้เป็นทรงเดียวกับ login-box */
+.container {
+    background-color: white;
+    width: 100%;
+    max-width: 380px; /* ตามขนาดหน้า Login */
+    height: 100vh;   
+    max-height: 850px; /* ตามขนาดหน้า Login */
+    
+    padding: 20px;
+    box-sizing: border-box;
+    position: relative; /* สำหรับ Sidebar absolute */
+    overflow: hidden;   /* กัน Sidebar แลบ */
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+/* --- ส่วนที่เหลือห้ามแก้ (ไส้ใน Dashboard) --- */
+
+/* Header */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 25px;
+}
+
+.menu-btn {
+    background-color: #e67e22;
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.user-info {
+    color: #555;
+    font-size: 14px;
+}
+
+.page-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.card {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    padding: 20px;
+    margin-bottom: 15px;
+    border: 1px solid #eee;
+}
+
+.label { font-size: 18px; color: #333; margin-bottom: 5px; }
+.value { font-size: 28px; font-weight: bold; color: #333; }
+.value-small { font-size: 20px; font-weight: bold; color: #333; }
+.unit { font-size: 16px; color: #666; margin-top: 5px; }
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}

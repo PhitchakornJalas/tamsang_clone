@@ -1,0 +1,112 @@
+body {
+margin: 0;
+  background: #ddd;
+  display: flex;
+  justify-content: center;  
+  align-items: center;     
+  height: 100vh;          
+  font-family: sans-serif;
+  /* ตรงกลางจอ เขียนแบบนี้ */
+}
+
+.container {
+  width: 360px;
+  height: 100vh;
+  background: #f3f3f3;
+  padding: 15px;
+  /* อันนี้คือจอใหญ่ เท่าโทรศัพท์ */
+}
+
+/* header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.menu-btn {
+  width: 45px;
+  height: 45px;
+  background: #ff9800;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+}
+
+.user {
+  font-size: 16px;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid #aaa;
+  margin: 15px 0;
+}
+
+
+.tabs {
+  display: flex;
+  justify-content: space-around;
+  font-weight: bold;
+}
+
+.tabs .active {
+  border-bottom: 3px solid black;
+}
+
+/* หัวด้านบน */
+h2 {
+  margin: 10px 0;
+}
+
+
+.menu-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 12px 0;
+}
+
+.left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.drag {
+  cursor: grab;
+}
+
+/* buttons */
+.actions {
+  display: flex;
+  gap: 8px;
+}
+
+.btn {
+  border: none;
+  padding: 6px 12px;
+  border-radius: 15px;
+}
+
+.edit {
+  background: #f4ea77;
+}
+
+.delete {
+  background: #ff2e6e;
+  color: white;
+}
+
+/* add button */
+.add-btn {
+  display: block;
+  margin: 30px auto;
+  background: #ff8c42;
+  padding: 12px 20px;
+  border-radius: 25px;
+  color: white;
+  border: none;
+}
